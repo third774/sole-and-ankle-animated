@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import SHOES from '../../data';
-import ShoeCard from '../ShoeCard';
+import SHOES from "../../data";
+import ShoeCard from "../ShoeCard";
 
 const ShoeGrid = () => {
   return (
@@ -17,8 +17,8 @@ const ShoeGrid = () => {
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 32px;
   /*
     Alternatively, if we can't use 'gap', we could set:
