@@ -83,7 +83,7 @@ const Image = styled.img`
 const Flag = styled.div`
   transition: transform 0.5s ease-in;
   will-change: transform;
-  transform-origin: right top;
+  transform-origin: top right;
 
   position: absolute;
   top: 12px;
@@ -107,9 +107,10 @@ const NewFlag = styled(Flag)`
 
 const Link = styled.a`
   text-decoration: none;
-  color: inherit;
 
   @media ${QUERIES.noMotionPreference} {
+    perspective: 200px;
+    transform-style: preserve-3d;
     :hover ${Image}, :focus ${Image} {
       transition: transform 0.2s ease-out;
       transform: scale(1.1);

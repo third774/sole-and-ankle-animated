@@ -118,42 +118,39 @@ const NavLink = ({ children, ...rest }) => {
   return (
     <StyledLink {...rest}>
       <SlidingContainer>
-        <ActualText>{children}</ActualText>
+        <LinkText>{children}</LinkText>
         <HoveredText>{children}</HoveredText>
       </SlidingContainer>
     </StyledLink>
   );
 };
 
-const ActualText = styled.span`
+const LinkText = styled.span`
   display: block;
-  :hover {
-    color: var(--color-gray-900);
-    font-weight: bold;
-  }
+  transform-origin: 50% 50% 10px;
+  backface-visibility: hidden;
 
   @media ${QUERIES.noMotionPreference} {
-    :hover {
-      color: unset;
-      font-weight: unset;
-    }
+    transition: transform 0.4s ease;
   }
 `;
-const HoveredText = styled.span`
-  display: block;
+
+const HoveredText = styled(LinkText)`
   position: absolute;
-  color: var(--color-gray-900);
-  font-weight: bold;
+  top: 0;
+  left: 0;
+  font-weight: ${WEIGHTS.bold};
+  transform: rotateX(90deg);
 `;
 
 const SlidingContainer = styled.span`
   display: block;
   position: relative;
-  transition: transform 0.5s ease;
 `;
 
 const StyledLink = styled.a`
-  overflow: hidden;
+  padding: 1rem;
+  margin: -1rem;
   font-size: 1.125rem;
   text-transform: uppercase;
   text-decoration: none;
@@ -164,9 +161,20 @@ const StyledLink = styled.a`
     color: var(--color-secondary);
   }
 
+  &:hover ${LinkText}, :focus ${LinkText} {
+    transform: rotateX(-90deg);
+  }
+
+  &:hover ${HoveredText}, :focus ${HoveredText} {
+    transform: rotateX(0deg);
+  }
+
   @media ${QUERIES.noMotionPreference} {
-    :hover ${SlidingContainer} {
-      transform: translateY(-100%);
+    // prettier-ignore
+    :hover ${LinkText},
+    :focus ${LinkText},
+    :hover ${HoveredText},
+    :focus ${HoveredText} {
       transition: transform 0.2s ease;
     }
   }
