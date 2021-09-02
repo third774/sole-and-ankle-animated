@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import styled from 'styled-components/macro';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
+import React from "react";
+import styled, { keyframes } from "styled-components/macro";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import { QUERIES, WEIGHTS } from "../../constants";
 
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
-import VisuallyHidden from '../VisuallyHidden';
+import UnstyledButton from "../UnstyledButton";
+import Icon from "../Icon";
+import VisuallyHidden from "../VisuallyHidden";
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
   return (
@@ -36,7 +36,30 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
   );
 };
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const slideIn = keyframes`
+  from {
+    transform: rotateY(-120deg);
+  }
+
+  to {
+    transform: rotateY(0deg);
+  }
+
+`;
+
 const Overlay = styled(DialogOverlay)`
+  --animation-duration: 1s;
+
   position: fixed;
   top: 0;
   left: 0;
@@ -45,6 +68,8 @@ const Overlay = styled(DialogOverlay)`
   background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
+  animation: ${fadeIn} calc(var(--animation-duration) * 0.6) ease-out;
+  perspective: 1400px;
 `;
 
 const Content = styled(DialogContent)`
@@ -54,6 +79,14 @@ const Content = styled(DialogContent)`
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+  transform-origin: center right;
+  animation: ${slideIn} calc(var(--animation-duration) * 0.4) ease both;
+  animation-delay: calc(var(--animation-duration) * 0.4);
+
+  a {
+    animation: ${fadeIn} calc(var(--animation-duration)) ease-in both;
+    animation-delay: calc(var(--animation-duration) * 0.15 * var(--nth-child));
+  }
 `;
 
 const CloseButton = styled(UnstyledButton)`
@@ -70,6 +103,25 @@ const Nav = styled.nav`
 `;
 
 const NavLink = styled.a`
+  :nth-child(1) {
+    --nth-child: 1;
+  }
+  :nth-child(2) {
+    --nth-child: 2;
+  }
+  :nth-child(3) {
+    --nth-child: 3;
+  }
+  :nth-child(4) {
+    --nth-child: 4;
+  }
+  :nth-child(5) {
+    --nth-child: 5;
+  }
+  :nth-child(6) {
+    --nth-child: 6;
+  }
+
   color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
   text-decoration: none;
